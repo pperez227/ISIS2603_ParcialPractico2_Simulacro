@@ -1,0 +1,23 @@
+1) ejecutar npm install en cmd 
+2) ejecutar ng serve desde src (cd src)
+
+Para hacer servicios:
+    ng generate service <nombreComponente>/<nombreComponente>.service
+    escribir private http: HttpClient en el constructor
+    Añadir en AppModule en los imports HttpClientModule
+    generar environments -> ng generate environments
+    en environments.development adentro de const environment:
+    "production: false,
+    <nombreUrl>: 'https://raw.githubusercontent.com/2603-Uniandes/jsons/refs/heads/main/2025-10%20Recetas/recipe.json'
+    "
+
+    Ahora, importar environment.development en el servicio
+    Añadir: private apiUrl: string = environment.<nombreUrl>
+
+    Despues del constructor definir el get
+    getRecipe(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(this.apiUrl);
+    }
+
+    Para el detalle de una receta 
+
