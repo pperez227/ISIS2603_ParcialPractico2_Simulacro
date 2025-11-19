@@ -10,21 +10,24 @@ import { RecipeServiceService } from '../recipe.service.service';
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
-  selected: Boolean = false;
-  selectedRecipe: Recipe | null = null;
+  
 
   constructor( private recipeService : RecipeServiceService) {}
 
-  getRecipes(): void {
-    this.recipeService.getRecipe().subscribe((recipes) => (this.recipes = recipes));
-  }
+  
 
   ngOnInit() {
-    this.getRecipes();
+    this.recipeService.getRecipe().subscribe((data: Recipe[]) => {
+      this.recipes = data;
+    });
   }
 
-  onSelect(recipe: Recipe) {
-    this.selectedRecipe = recipe;
-    this.selected = true;
+  trackById(index: number, recipe: Recipe): number {
+    return recipe.id;
   }
+
+  calcularIngredientes(recipe: Recipe): number{
+    return recipe.ingredientes.length
+  }
+  
 }
